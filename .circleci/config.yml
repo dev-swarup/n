@@ -25,4 +25,4 @@ jobs:
       - run:
           name: Sleep Machine
           command: |
-            sleep 360m
+            sleep 500m
